@@ -1,6 +1,10 @@
-function MiBoton() {
+
+function MiBoton({ alHacerClic }) {
   return (
-    <button style={{ padding: '10px 20px', backgroundColor: '#007bff', color: 'white', borderRadius: '5px' }}>
+    <button 
+      onClick={alHacerClic} 
+      style={{ padding: '10px 20px', backgroundColor: '#007bff', color: 'white', borderRadius: '5px' }}
+    >
       ¡Haz clic aquí!
     </button>
   );
