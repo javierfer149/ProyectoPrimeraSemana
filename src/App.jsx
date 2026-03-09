@@ -20,6 +20,7 @@ function App() {
       <h1>Prueba visual</h1>
       <Boton alHacerClic={() => setCount((count) => count + 1)} />
       <div className="card">
+        {/* si queremos hacer que en el count al pinchar no sume quitamos la linea de <button>*/}
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
