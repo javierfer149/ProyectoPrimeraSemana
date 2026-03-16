@@ -2,10 +2,36 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+
+// Importamos nuestros componentes
 import Boton from './Boton';
+import FormularioUsuario from './FormularioUsuario'; // <-- Nuevo componente
+import Formulario from './Formulario';
+import ListaTareas from './ListaTareas';
 
 function App() {
   const [count, setCount] = useState(0)
+  const [tareas, setTareas] = useState([])
+
+  const agregarTarea = (nuevaTarea) => {
+    // Comprobamos si la tarea ya existe (ignorando mayúsculas y minúsculas)
+    const tareaExiste = tareas.some(tarea => tarea.toLowerCase() === nuevaTarea.toLowerCase());
+    
+    if (tareaExiste) {
+      // Si existe, mostramos el mensaje de confirmación
+      const confirmar = window.confirm('Esta tarea ya existe. ¿Estás seguro de que quieres añadirla de nuevo?');
+      if (!confirmar) {
+        return; // Si el usuario cancela, detenemos la función aquí
+      }
+    }
+
+    setTareas([...tareas, nuevaTarea]);
+  };
+
+  const eliminarTarea = (indiceABorrar) => {
+    const nuevasTareas = tareas.filter((_, indice) => indice !== indiceABorrar);
+    setTareas(nuevasTareas);
+  };
 
   return (
     <>
@@ -17,20 +43,22 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Prueba visual</h1>
-      <Boton alHacerClic={() => setCount((count) => count + 1)} />
+      <h1>Proyecto Semana 2</h1>
+      
+      {/* Sección del usuario (Nombre y Correo) */}
+      <FormularioUsuario />
+
       <div className="card">
-        {/* si queremos hacer que en el count al pinchar no sume quitamos la linea de <button>*/}
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        <h2>1. Mi Contador</h2>
+        <Boton alHacerClic={() => setCount((count) => count + 1)} />
+        <p style={{ marginTop: '10px' }}>El contador está en: {count}</p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
+      <div className="card">
+        <h2>2. Mi Lista de Tareas</h2>
+        <Formulario alAgregar={agregarTarea} />
+        <ListaTareas tareas={tareas} alEliminar={eliminarTarea} />
+      </div>
     </>
   )
 }
