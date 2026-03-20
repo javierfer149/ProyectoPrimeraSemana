@@ -43,7 +43,7 @@ La interfaz reacciona de forma dinámica a las siguientes interacciones:
 7. Al hacer clic en los enlaces del menú superior ("Contador" o "Lista de Tareas"), la pantalla cambia instantáneamente de una vista a otra sin necesidad de recargar la página.
 
 ## 6. ¿Qué es el estado en mi aplicación?
-El estado es la información que puede cambiar mientras el usuario utiliza la aplicación.Cuando el estado cambia, React actualiza automáticamente la pantalla para reflejar esos cambios[cite: 47].
+El estado es la información que puede cambiar mientras el usuario utiliza la aplicación.Cuando el estado cambia, React actualiza automáticamente la pantalla para reflejar esos cambios.
 En esta aplicación en concreto, estoy controlando los siguientes estados:
 * **El contador (`count`):** Guarda el número actual de clics.
 * **Los datos del usuario (`nombre` y `correo`):** Estados locales dentro del componente `FormularioUsuario` que se inicializan leyendo de `localStorage` y se actualizan conforme el usuario teclea.
