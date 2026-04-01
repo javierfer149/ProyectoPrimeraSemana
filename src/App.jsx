@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import PaginaInicio from './PaginaInicio';
 import PaginaContador from './PaginaContador';
 import PaginaTareas from './PaginaTareas';
+import PaginaUsuarios from './PaginaUsuarios';
 
 function App() {
   return (
@@ -23,18 +24,21 @@ function App() {
       </div>
       <h1>Proyecto Fase 1</h1>
       
-      {/* Menú de navegación*/}
+      {/* Menú de navegación actualizado */}
       <nav style={{ marginBottom: '20px', padding: '10px', backgroundColor: '#f0f0f0', borderRadius: '8px' }}>
         <Link to="/" style={{ marginRight: '15px', fontWeight: 'bold' }}>Inicio</Link>
         <Link to="/contador" style={{ marginRight: '15px', fontWeight: 'bold' }}>Contador</Link>
-        <Link to="/tareas" style={{ fontWeight: 'bold' }}>Lista de Tareas</Link>
+        <Link to="/tareas" style={{ marginRight: '15px', fontWeight: 'bold' }}>Lista de Tareas</Link>
+        {/* NUEVO ENLACE SEMANA 1 FASE 2 */}
+        <Link to="/usuarios" style={{ marginLeft: '15px', fontWeight: 'bold', color: 'blue' }}>Usuarios API</Link>
       </nav>
 
-      {/* Aquí están las tres rutas distintas*/}
       <Routes>
         <Route path="/" element={<PaginaInicio />} />
         <Route path="/contador" element={<PaginaContador />} />
         <Route path="/tareas" element={<PaginaTareas />} />
+        {/* NUEVA RUTA */}
+        <Route path="/usuarios" element={<PaginaUsuarios />} />
       </Routes>
     </BrowserRouter>
   )
