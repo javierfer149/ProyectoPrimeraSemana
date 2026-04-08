@@ -1,4 +1,4 @@
-import { useState } from 'react'; // Quitamos useEffect porque ya no lo usaremos.
+import { useState } from 'react';
 
 function PaginaUsuarios() {
   const [usuarios, setUsuarios] = useState([]);
@@ -36,7 +36,6 @@ function PaginaUsuarios() {
         {cargando ? 'Cargando...' : 'Cargar Usuarios'}
       </button>
 
-      {/* Manejo de estados visuales */}
       {error && <h2 style={{ color: 'red' }}>Error: {error}</h2>}
 
       {usuarios.length > 0 && (

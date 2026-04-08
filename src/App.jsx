@@ -22,7 +22,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Proyecto Fase 1</h1>
+      <h1>Proyecto Fase 2</h1>
       
       {/* Menú de navegación actualizado */}
       <nav style={{ marginBottom: '20px', padding: '10px', backgroundColor: '#f0f0f0', borderRadius: '8px' }}>
