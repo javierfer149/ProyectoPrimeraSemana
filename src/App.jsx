@@ -29,7 +29,6 @@ function App() {
         <Link to="/" style={{ marginRight: '15px', fontWeight: 'bold' }}>Inicio</Link>
         <Link to="/contador" style={{ marginRight: '15px', fontWeight: 'bold' }}>Contador</Link>
         <Link to="/tareas" style={{ marginRight: '15px', fontWeight: 'bold' }}>Lista de Tareas</Link>
-        {/* NUEVO ENLACE SEMANA 1 FASE 2 */}
         <Link to="/usuarios" style={{ marginLeft: '15px', fontWeight: 'bold', color: 'blue' }}>Usuarios API</Link>
       </nav>
 
@@ -37,7 +36,6 @@ function App() {
         <Route path="/" element={<PaginaInicio />} />
         <Route path="/contador" element={<PaginaContador />} />
         <Route path="/tareas" element={<PaginaTareas />} />
-        {/* NUEVA RUTA */}
         <Route path="/usuarios" element={<PaginaUsuarios />} />
       </Routes>
     </BrowserRouter>
