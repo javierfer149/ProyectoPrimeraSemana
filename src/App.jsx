@@ -5,11 +5,12 @@ import './App.css'
 // Importamos las herramientas de React Router
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
-// Importamos nuestras tres páginas ahora
+// Importamos nuestras páginas
 import PaginaInicio from './PaginaInicio';
 import PaginaContador from './PaginaContador';
 import PaginaTareas from './PaginaTareas';
 import PaginaUsuarios from './PaginaUsuarios';
+import PaginaDirectus from './PaginaDirectus'; 
 
 function App() {
   return (
@@ -29,7 +30,8 @@ function App() {
         <Link to="/" style={{ marginRight: '15px', fontWeight: 'bold' }}>Inicio</Link>
         <Link to="/contador" style={{ marginRight: '15px', fontWeight: 'bold' }}>Contador</Link>
         <Link to="/tareas" style={{ marginRight: '15px', fontWeight: 'bold' }}>Lista de Tareas</Link>
-        <Link to="/usuarios" style={{ marginLeft: '15px', fontWeight: 'bold', color: 'blue' }}>Usuarios API</Link>
+        <Link to="/usuarios" style={{ marginRight: '15px', fontWeight: 'bold' }}>Usuarios API</Link>
+        <Link to="/directus" style={{ marginLeft: '15px', fontWeight: 'bold', color: 'green' }}>Personajes Directus</Link>
       </nav>
 
       <Routes>
@@ -37,6 +39,7 @@ function App() {
         <Route path="/contador" element={<PaginaContador />} />
         <Route path="/tareas" element={<PaginaTareas />} />
         <Route path="/usuarios" element={<PaginaUsuarios />} />
+        <Route path="/directus" element={<PaginaDirectus />} />
       </Routes>
     </BrowserRouter>
   )
