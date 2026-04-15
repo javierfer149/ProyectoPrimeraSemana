@@ -6,8 +6,8 @@ function PaginaDirectus() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Hacemos la petición a la API de Directus
-    fetch('https://sandbox.directus.io/items/personajes')
+    // URL 
+    fetch('https://sandbox.directus.io/items/Personajes')
       .then(response => {
         if (!response.ok) {
           throw new Error('No se pudo conectar con Directus. Revisa los permisos públicos.');
@@ -15,7 +15,6 @@ function PaginaDirectus() {
         return response.json();
       })
       .then(datos => {
-        // Guardamos los datos (Directus los envía dentro de .data)
         setPersonajes(datos.data);
         setCargando(false);
       })
@@ -28,7 +27,7 @@ function PaginaDirectus() {
 
   if (cargando) return (
     <div style={{ padding: '20px' }}>
-      <p> Conectando con el servidor de Directus...</p>
+      <p>⏳ Conectando con el servidor de Directus...</p>
     </div>
   );
 
@@ -55,13 +54,17 @@ function PaginaDirectus() {
               textAlign: 'left',
               paddingBottom: '20px'
             }}>
-              <h3 style={{ margin: '0 0 10px 0', color: '#646cff', fontSize: '1.5rem' }}>{p.nombre}</h3>
+              {/* Usamos p.Nombre con mayúscula */}
+              <h3 style={{ margin: '0 0 10px 0', color: '#646cff', fontSize: '1.5rem' }}>
+                {p.Nombre}
+              </h3>
               
-              {p.imagen && (
+              {/* Usamos p.Imagen con mayúscula */}
+              {p.Imagen && (
                 <div style={{ marginBottom: '15px' }}>
                   <img 
-                    src={`https://sandbox.directus.io/assets/${p.imagen}`} 
-                    alt={p.nombre} 
+                    src={`https://sandbox.directus.io/assets/${p.Imagen}`} 
+                    alt={p.Nombre} 
                     style={{ 
                       width: '100%', 
                       maxWidth: '300px', 
@@ -72,7 +75,10 @@ function PaginaDirectus() {
                 </div>
               )}
 
-              <p style={{ margin: 0, color: '#555', lineHeight: '1.6' }}>{p.descripcion}</p>
+              {/* Usamos p.Descripcion con mayúscula */}
+              <p style={{ margin: 0, color: '#555', lineHeight: '1.6' }}>
+                {p.Descripcion}
+              </p>
             </li>
           ))}
         </ul>
