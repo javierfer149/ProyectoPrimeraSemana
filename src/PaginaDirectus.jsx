@@ -1,88 +1,101 @@
 import { useState, useEffect } from 'react';
 
 function PaginaDirectus() {
-  const [personajes, setPersonajes] = useState([]);
+  const [productos, setProductos] = useState([]);
   const [cargando, setCargando] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // URL 
-    fetch('https://sandbox.directus.io/items/Personajes')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('No se pudo conectar con Directus. Revisa los permisos públicos.');
-        }
-        return response.json();
-      })
+    fetch('https://sandbox.directus.io/items/Productos')
+      .then(res => res.json())
       .then(datos => {
-        setPersonajes(datos.data);
-        setCargando(false);
-      })
-      .catch(err => {
-        console.error("Error en la petición:", err);
-        setError(err.message);
+        setProductos(datos.data);
         setCargando(false);
       });
   }, []);
 
-  if (cargando) return (
-    <div style={{ padding: '20px' }}>
-      <p>⏳ Conectando con el servidor de Directus...</p>
-    </div>
-  );
+  // Función para redirigir a la tienda oficial
+  const irATiendaOficial = () => {
+    window.open('https://casamuseoratonperez.store/collections/productos-que-no-pueden-faltar-de-raton-perez?page=2', '_blank');
+  };
 
-  if (error) return (
-    <div style={{ padding: '20px', color: 'red' }}>
-      <h3> Error de conexión</h3>
-      <p>{error}</p>
-    </div>
-  );
+  if (cargando) return <p>Cargando tienda...</p>;
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>Mis Personajes (Desde Directus)</h1>
+    <div style={{ padding: '20px', backgroundColor: '#f4f4f4', minHeight: '100vh' }}>
+      <h1 style={{ textAlign: 'center', marginBottom: '40px' }}>Tienda Casa Museo Ratón Pérez</h1>
       
-      {personajes.length === 0 ? (
-        <p>No se encontraron personajes en la base de datos.</p>
-      ) : (
-        <ul style={{ padding: 0 }}>
-          {personajes.map(p => (
-            <li key={p.id} style={{ 
-              marginBottom: '30px', 
-              listStyle: 'none', 
-              borderBottom: '1px solid #eee',
-              textAlign: 'left',
-              paddingBottom: '20px'
-            }}>
-              {/* Usamos p.Nombre con mayúscula */}
-              <h3 style={{ margin: '0 0 10px 0', color: '#646cff', fontSize: '1.5rem' }}>
-                {p.Nombre}
-              </h3>
-              
-              {/* Usamos p.Imagen con mayúscula */}
-              {p.Imagen && (
-                <div style={{ marginBottom: '15px' }}>
-                  <img 
-                    src={`https://sandbox.directus.io/assets/${p.Imagen}`} 
-                    alt={p.Nombre} 
-                    style={{ 
-                      width: '100%', 
-                      maxWidth: '300px', 
-                      borderRadius: '12px',
-                      boxShadow: '0 4px 8px rgba(0,0,0,0.1)' 
-                    }} 
-                  />
-                </div>
-              )}
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', 
+        gap: '20px' 
+      }}>
+        {productos.map(p => (
+          <div key={p.id} style={{ 
+            backgroundColor: 'white', 
+            borderRadius: '15px', 
+            padding: '20px', 
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            boxShadow: '0 4px 10px rgba(0,0,0,0.05)'
+          }}>
+            {p.Imagen && (
+              <img 
+                src={`https://sandbox.directus.io/assets/${p.Imagen}`} 
+                style={{ width: '100%', height: '200px', objectFit: 'contain' }} 
+              />
+            )}
 
-              {/* Usamos p.Descripcion con mayúscula */}
-              <p style={{ margin: 0, color: '#555', lineHeight: '1.6' }}>
-                {p.Descripcion}
-              </p>
-            </li>
-          ))}
-        </ul>
-      )}
+            <h3 style={{ fontSize: '1.1rem', margin: '15px 0' }}>{p.Nombre}</h3>
+
+            <div style={{ marginBottom: '10px' }}>
+              {p.Precio_Oferta ? (
+                <>
+                  <span style={{ textDecoration: 'line-through', color: 'red', marginRight: '10px' }}>{p.Precio}€</span>
+                  <span style={{ fontSize: '1.3rem', fontWeight: 'bold', color: 'green' }}>{p.Precio_Oferta}€</span>
+                </>
+              ) : (
+                <span style={{ fontSize: '1.3rem', fontWeight: 'bold' }}>{p.Precio}€</span>
+              )}
+            </div>
+
+            {/* MOSTRAR VARIANTES SI EXISTEN */}
+            {p.Variantes && Array.isArray(p.Variantes) && (
+              <div style={{ margin: '10px 0', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '5px' }}>
+                {p.Variantes.map((v, index) => (
+                  <span key={index} style={{ 
+                    fontSize: '0.7rem', 
+                    backgroundColor: '#eee', 
+                    padding: '3px 8px', 
+                    borderRadius: '10px',
+                    border: '1px solid #ccc'
+                  }}>
+                    {v.replace('_', ' ')}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            <p style={{ fontSize: '0.85rem', color: '#666', flexGrow: 1 }}>{p.Descripcion}</p>
+
+            <button 
+              onClick={irATiendaOficial}
+              style={{ 
+                backgroundColor: '#646cff', 
+                color: 'white', 
+                border: 'none', 
+                padding: '12px', 
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontWeight: 'bold',
+                marginTop: '15px'
+              }}
+            >
+              Comprar
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
